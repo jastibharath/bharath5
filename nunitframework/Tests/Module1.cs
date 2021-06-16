@@ -14,15 +14,40 @@ using OpenQA.Selenium.Support;
 using OpenQA.Selenium.Interactions;
 using excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using System.Reflection;
 using System.Linq;
 
 namespace nunitframework.Tests
 { 
     [TestFixture]
-
+    
     
     class Module1: BaseTest
     {
+        string currentpath = NUnit.Framework.Internal.AssemblyHelper.GetAssemblyPath(typeof(Module1).Assembly).Split(new string[] { "bin" }, StringSplitOptions.None)[0];
+        ExtentReports extent = null;
+        [OneTimeSetUp]
+        public void extentStart()
+        {
+            extent = new ExtentReports();
+            var htmlReporter = new ExtentHtmlReporter(currentpath+"/Reports/Report.html");
+            extent.AttachReporter(htmlReporter);
+        }
+        [OneTimeTearDown]
+        public void extentflush()
+        {
+            extent.Flush();
+        }
+        public string capturescreensot(string test)
+        {
+            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+            string screenshotpath = currentpath + "/Failures/" + test + ".png";
+            ss.SaveAsFile(screenshotpath,ScreenshotImageFormat.Png);
+            return screenshotpath;
+
+        }
 
         public void drawborder(IWebElement element,IWebDriver driver)
         {
@@ -109,7 +134,22 @@ namespace nunitframework.Tests
         [Test]
         public void TestMethod1()
         {
-            driver.Url = "https://www.amazon.in/";
+
+            ExtentTest test=extent.CreateTest(MethodBase.GetCurrentMethod().Name).Info("Test Started");
+            try
+            {
+                driver.Url = "https://www.amazon.in/";
+                test.Log(Status.Info, "url passed");
+                driver.FindElement(By.XPath("ab")).Click();
+                test.Log(Status.Pass,"passed succesfully");
+            }
+            catch (Exception e)
+            {
+                
+                test.Log(Status.Fail,e.ToString());
+                test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name)).Build());
+            }
+            
 
         }
 
