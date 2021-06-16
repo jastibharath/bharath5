@@ -145,8 +145,8 @@ namespace nunitframework.Tests
             }
             catch (Exception e)
             {
-                
-                test.Log(Status.Fail,e.ToString());
+
+                test.Log(Status.Fail, e.ToString());
                 test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name)).Build());
             }
             
