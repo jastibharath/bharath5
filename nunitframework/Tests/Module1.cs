@@ -43,7 +43,7 @@ namespace nunitframework.Tests
         public string capturescreensot(string test)
         {
             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-            string screenshotpath = currentpath + "/Reports/" + test + ".png";
+            string screenshotpath = "/job/fromgit/ws/nunitframework/Reports/"+ test + ".png";
             ss.SaveAsFile(screenshotpath,ScreenshotImageFormat.Png);
             return screenshotpath;
 
@@ -147,7 +147,7 @@ namespace nunitframework.Tests
             {
 
                 test.Log(Status.Fail, e.ToString());
-                test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name));
+                //test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name));
                 test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name)).Build());
             }
             
