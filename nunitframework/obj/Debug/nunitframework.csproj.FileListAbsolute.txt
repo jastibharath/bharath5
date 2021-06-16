@@ -278,3 +278,4 @@ C:\Users\bjasti\source\repos\nunitframework\nunitframework\obj\Debug\nunitframew
 C:\Users\bjasti\source\repos\nunitframework\nunitframework\obj\Debug\nunitframework.csproj.CopyComplete
 C:\Users\bjasti\source\repos\nunitframework\nunitframework\obj\Debug\nunitframework.exe
 C:\Users\bjasti\source\repos\nunitframework\nunitframework\obj\Debug\nunitframework.pdb
+C:\Users\bjasti\source\repos\nunitframework\nunitframework\obj\Debug\nunitframework.csprojAssemblyReference.cache

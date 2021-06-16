@@ -43,7 +43,7 @@ namespace nunitframework.Tests
         public string capturescreensot(string test)
         {
             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-            string screenshotpath = currentpath + "/Failures/" + test + ".png";
+            string screenshotpath = currentpath + "/Reports/" + test + ".png";
             ss.SaveAsFile(screenshotpath,ScreenshotImageFormat.Png);
             return screenshotpath;
 
