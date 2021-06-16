@@ -147,6 +147,7 @@ namespace nunitframework.Tests
             {
 
                 test.Log(Status.Fail, e.ToString());
+                test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name));
                 test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name)).Build());
             }
             
