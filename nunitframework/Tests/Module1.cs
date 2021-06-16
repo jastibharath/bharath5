@@ -43,7 +43,7 @@ namespace nunitframework.Tests
         public string capturescreensot(string test)
         {
             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-            string screenshotpath = "/job/fromgit/ws/nunitframework/Reports/"+ test + ".png";
+            string screenshotpath = @"C:\Users\bjasti\Downloads\workspace\fromgit\nunitframework\Reports" + test + ".png";
             ss.SaveAsFile(screenshotpath,ScreenshotImageFormat.Png);
             return screenshotpath;
 
