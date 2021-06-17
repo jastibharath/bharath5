@@ -162,7 +162,7 @@ namespace nunitframework.Tests
             {
                 
                 test.Log(Status.Fail, e.ToString());
-                test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name) + "png");
+                test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name) + ".png");
                 logger.Info("test failed", e);
                 //test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name));
                 //test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath().Build());
