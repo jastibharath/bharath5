@@ -152,7 +152,7 @@ namespace nunitframework.Tests
                 test.Log(Status.Info, "url passed");
                 logger.Info("url passed");
                 //driver.FindElement(By.XPath("ab")).Click();
-                Assert.AreEqual("Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in", driver.Title);
+                Assert.AreEqual("Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in", driver.Title);
                 //Console.WriteLine(driver.Title);
                 test.Log(Status.Pass, "passed succesfully");
                 logger.Info("test passed");
@@ -163,7 +163,7 @@ namespace nunitframework.Tests
                 
                 test.Log(Status.Fail, e.ToString());
                 logger.Info("test failed", e);
-                ;
+                
                 //test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name));
                 test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name)+"png").Build());
                 Assert.Fail("Test failed barri");
