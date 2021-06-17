@@ -17,7 +17,10 @@ using System.Runtime.InteropServices;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using System.Reflection;
+ 
 using System.Linq;
+using log4net.Config;
+using log4net;
 
 namespace nunitframework.Tests
 { 
@@ -28,12 +31,16 @@ namespace nunitframework.Tests
     {
         string currentpath = NUnit.Framework.Internal.AssemblyHelper.GetAssemblyPath(typeof(Module1).Assembly).Split(new string[] { "bin" }, StringSplitOptions.None)[0];
         ExtentReports extent = null;
+        ExtentTest test = null;
+        ILog logger=null;
         [OneTimeSetUp]
         public void extentStart()
         {
             extent = new ExtentReports();
             var htmlReporter = new ExtentHtmlReporter(currentpath+"/Reports/Report.html");
             extent.AttachReporter(htmlReporter);
+            XmlConfigurator.Configure();
+            
         }
         [OneTimeTearDown]
         public void extentflush()
@@ -43,7 +50,7 @@ namespace nunitframework.Tests
         public string capturescreensot(string test)
         {
             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-            string screenshotpath = "/job/fromgit/ws/nunitframework/Reports/" + test + ".png";
+            string screenshotpath = currentpath+"Reports/" + test + ".png";
             //string exactPath = System.IO.Path.GetFullPath(screenshotpath);
             ss.SaveAsFile(screenshotpath, ScreenshotImageFormat.Png);
             return screenshotpath;
@@ -136,20 +143,29 @@ namespace nunitframework.Tests
         public void TestMethod1()
         {
 
-            ExtentTest test=extent.CreateTest(MethodBase.GetCurrentMethod().Name).Info("Test Started");
+            test=extent.CreateTest(MethodBase.GetCurrentMethod().Name).Info("Test Started");
+            logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().Name);
             try
             {
                 driver.Url = "https://www.amazon.in/";
                 test.Log(Status.Info, "url passed");
-                driver.FindElement(By.XPath("ab")).Click();
-                test.Log(Status.Pass,"passed succesfully");
+                logger.Info("url passed");
+                //driver.FindElement(By.XPath("ab")).Click();
+                Assert.AreEqual("Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in", driver.Title);
+                //Console.WriteLine(driver.Title);
+                test.Log(Status.Pass, "passed succesfully");
+                logger.Info("test passed");
+                
             }
             catch (Exception e)
             {
-
+                
                 test.Log(Status.Fail, e.ToString());
+                logger.Info("test failed", e);
                 //test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name));
                 test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name)).Build());
+                Assert.Fail("Test failed barri");
+
             }
             
 

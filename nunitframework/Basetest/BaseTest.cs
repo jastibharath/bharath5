@@ -30,11 +30,11 @@ namespace nunitframework.Basetest
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
-        //[TearDown]
-        //public void close()
-        //{
-        //    driver.Quit();
-        //}
+        [TearDown]
+        public void close()
+        {
+            driver.Quit();
+        }
 
     }
 }
