@@ -38,6 +38,7 @@ namespace nunitframework.Tests
         {
             extent = new ExtentReports();
             var htmlReporter = new ExtentHtmlReporter(currentpath+"/Reports/Report.html");
+          
             extent.AttachReporter(htmlReporter);
             XmlConfigurator.Configure();
             
@@ -50,10 +51,10 @@ namespace nunitframework.Tests
         public string capturescreensot(string test)
         {
             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-            string screenshotpath = "./snapshots/" + test + ".png";
+            string screenshotpath = currentpath+"Reports/" + test + ".png";
             //string exactPath = System.IO.Path.GetFullPath(screenshotpath);
             ss.SaveAsFile(screenshotpath, ScreenshotImageFormat.Png);
-            return screenshotpath;
+            return test;
 
         }
 
@@ -162,8 +163,9 @@ namespace nunitframework.Tests
                 
                 test.Log(Status.Fail, e.ToString());
                 logger.Info("test failed", e);
+                ;
                 //test.AddScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name));
-                test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name)).Build());
+                test.Info("failure", MediaEntityBuilder.CreateScreenCaptureFromPath(capturescreensot(MethodBase.GetCurrentMethod().Name)+"png").Build());
                 Assert.Fail("Test failed barri");
 
             }
